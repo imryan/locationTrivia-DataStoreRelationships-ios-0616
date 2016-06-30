@@ -8,7 +8,7 @@
 
 #import "FISAddLocationViewController.h"
 #import "FISLocationsDataStore.h"
-
+#import "FISLocation.h"
 #import <Specta/Specta.h>
 #import <Expecta/Expecta.h>
 #import <KIF/KIF.h>
@@ -59,43 +59,23 @@ describe(@"FISAddLocationViewController", ^{
         });
     });
     
-    describe(@"latitudeField", ^{
-        __block UITextField *latitudeField;
+    describe(@"coordinatesButton", ^{
+        __block UIButton *coordinatesButton;
         
         beforeAll(^{
-            latitudeField = (UITextField*)[tester waitForViewWithAccessibilityLabel:@"latitudeField"];
+            coordinatesButton = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"coordinatesButton"];
         });
         
         it(@"is accessible via accessibilityLabel", ^{
-            expect(latitudeField).toNot.beNil();
+            expect(coordinatesButton).toNot.beNil();
         });
         
-        it(@"is a textField", ^{
-            expect([latitudeField isMemberOfClass:[UITextField class]]).to.beTruthy();
-        });
-        
-        it(@"has userInteractionEnabled", ^{
-            expect(latitudeField.userInteractionEnabled).to.beTruthy();
-        });
-    });
-    
-    describe(@"longitudeField", ^{
-        __block UITextField *longitudeField;
-        
-        beforeAll(^{
-            longitudeField = (UITextField*)[tester waitForViewWithAccessibilityLabel:@"longitudeField"];
-        });
-        
-        it(@"is accessible via accessibilityLabel", ^{
-            expect(longitudeField).toNot.beNil();
-        });
-        
-        it(@"is a textField", ^{
-            expect([longitudeField isMemberOfClass:[UITextField class]]).to.beTruthy();
+        it(@"is a button", ^{
+            expect([coordinatesButton isMemberOfClass:[UIButton class]]).to.beTruthy();
         });
         
         it(@"has userInteractionEnabled", ^{
-            expect(longitudeField.userInteractionEnabled).to.beTruthy();
+            expect(coordinatesButton.userInteractionEnabled).to.beTruthy();
         });
     });
     
@@ -103,7 +83,7 @@ describe(@"FISAddLocationViewController", ^{
        __block UIButton *saveButton;
         
         beforeAll(^{
-            saveButton = (UIButton*)[tester waitForViewWithAccessibilityLabel:@"saveButton"];
+            saveButton = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"saveButton"];
         });
         
         it(@"is accessible via accessibilityLabel", ^{
@@ -111,7 +91,7 @@ describe(@"FISAddLocationViewController", ^{
         });
         
         it(@"saves a new FISLocation to the DataManager", ^{
-            FISLocationsDataStore *store = [FISLocationsDataStore sharedLocationsDataStore];
+            FISLocationsDataStore *store = [FISLocationsDataStore sharedInstance];
             
             NSInteger dataManagerCountPreSave = store.locations.count;
             [tester tapViewWithAccessibilityLabel:@"saveButton"];
@@ -122,23 +102,26 @@ describe(@"FISAddLocationViewController", ^{
         });
         
         it(@"saves a new FISLocation with actual user input", ^{
-            FISLocationsDataStore *store = [FISLocationsDataStore sharedLocationsDataStore];
+            FISLocationsDataStore *store = [FISLocationsDataStore sharedInstance];
             
             NSString *testLocationName = @"Test Location";
-            NSString *testLocationLat = @"40.7050";
-            NSString *testLocationLong = @"74.0136";
+            // NSString *testLocationLat = @"40.7050";
+            // NSString *testLocationLong = @"74.0136";
             
             [tester enterText:testLocationName intoViewWithAccessibilityLabel:@"nameField"];
-            [tester enterText:testLocationLat intoViewWithAccessibilityLabel:@"latitudeField"];
-            [tester enterText:testLocationLong intoViewWithAccessibilityLabel:@"longitudeField"];
+            
+            // Yeah probably not gonna wanna do that on a simulator during a test suite
+            // [tester tapViewWithAccessibilityLabel:@"coordinatesButton"];
             
             [tester tapViewWithAccessibilityLabel:@"saveButton"];
             [tester waitForTimeInterval:0.5];
             FISLocation *savedLocation = [store.locations lastObject];
             
             expect(savedLocation.name).to.equal(testLocationName);
-            expect(savedLocation.latitude).to.equal(@([testLocationLat floatValue]));
-            expect(savedLocation.longitude).to.equal(@([testLocationLong floatValue]));
+            
+            // The app is grabbing the user's current location, can't test against these values
+            // expect(savedLocation.latitude).to.equal(@([testLocationLat floatValue]));
+            // expect(savedLocation.longitude).to.equal(@([testLocationLong floatValue]));
         });
         
         it(@"dismisses the AddLocationsVC", ^{
@@ -159,7 +142,7 @@ describe(@"FISAddLocationViewController", ^{
         __block UIButton *cancelButton;
         
         beforeAll(^{
-            cancelButton = (UIButton*)[tester waitForViewWithAccessibilityLabel:@"cancelButton"];
+            cancelButton = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"cancelButton"];
         });
         
         it(@"is accessible via accessibilityLabel", ^{

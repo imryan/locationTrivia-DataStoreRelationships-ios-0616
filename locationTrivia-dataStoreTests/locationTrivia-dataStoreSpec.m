@@ -20,7 +20,7 @@ SpecBegin(locationTriviaDataStore)
 
 describe(@"locationTriviaDataStore", ^{
     
-    __block NSMutableArray *locations = [FISLocationsDataStore sharedLocationsDataStore].locations;
+    __block NSMutableArray *locations = [FISLocationsDataStore sharedInstance].locations;
     
     __block UINavigationController *navCon;
     
@@ -38,7 +38,7 @@ describe(@"locationTriviaDataStore", ^{
         __block UITableView *table;
         
         beforeEach(^{
-            [FISLocationsDataStore sharedLocationsDataStore].locations = locations;
+            [FISLocationsDataStore sharedInstance].locations = locations;
             table = (UITableView *)[tester waitForViewWithAccessibilityLabel:@"Locations Table"];
         });
         
@@ -64,17 +64,17 @@ describe(@"locationTriviaDataStore", ^{
             NSIndexPath *row = [NSIndexPath indexPathForRow:0 inSection:0];
             UITableViewCell *cell = (UITableViewCell *)[tester waitForCellAtIndexPath:row inTableViewWithAccessibilityIdentifier:@"Locations Table"];
             
-            expect(cell.detailTextLabel.text).to.equal(@"3");
+            expect(cell.detailTextLabel.text).to.equal(@"3 trivia");
             
             row = [NSIndexPath indexPathForRow:1 inSection:0];
             cell = (UITableViewCell *)[tester waitForCellAtIndexPath:row inTableViewWithAccessibilityIdentifier:@"Locations Table"];
             
-            expect(cell.detailTextLabel.text).to.equal(@"2");
+            expect(cell.detailTextLabel.text).to.equal(@"2 trivia");
             
             row = [NSIndexPath indexPathForRow:2 inSection:0];
             cell = (UITableViewCell *)[tester waitForCellAtIndexPath:row inTableViewWithAccessibilityIdentifier:@"Locations Table"];
             
-            expect(cell.detailTextLabel.text).to.equal(@"1");
+            expect(cell.detailTextLabel.text).to.equal(@"1 trivium");
         });
         
         it(@"Should push on trivia VC when a cell is tapped", ^{
@@ -89,7 +89,7 @@ describe(@"locationTriviaDataStore", ^{
     describe(@"Trivia ViewController", ^{
         __block UITableView *table;
         beforeEach(^{
-            [FISLocationsDataStore sharedLocationsDataStore].locations = locations;
+            [FISLocationsDataStore sharedInstance].locations = locations;
             NSIndexPath *row = [NSIndexPath indexPathForRow:1 inSection:0];
             [tester tapRowAtIndexPath:row inTableViewWithAccessibilityIdentifier:@"Locations Table"];
             table = (UITableView *)[tester waitForViewWithAccessibilityLabel:@"Trivia Table"];
@@ -122,7 +122,7 @@ describe(@"locationTriviaDataStore", ^{
         __block NSString *triviumText = @"Flatiron School is Here";
 
         beforeEach(^{
-            [FISLocationsDataStore sharedLocationsDataStore].locations = locations;
+            [FISLocationsDataStore sharedInstance].locations = locations;
             NSIndexPath *row = [NSIndexPath indexPathForRow:0 inSection:0];
             [tester tapRowAtIndexPath:row inTableViewWithAccessibilityIdentifier:@"Locations Table"];
             table = (UITableView *)[tester waitForViewWithAccessibilityLabel:@"Trivia Table"];
