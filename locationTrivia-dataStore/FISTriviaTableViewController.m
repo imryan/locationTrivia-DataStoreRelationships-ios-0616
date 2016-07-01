@@ -75,6 +75,16 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.location.trivia sortUsingComparator:^NSComparisonResult(FISTrivium *trivium1, FISTrivium *trivium2) {
+        if (trivium1.likes > trivium2.likes) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+        
+        return NSOrderedSame;
+    }];
+    
     [self.tableView reloadData];
 }
 

@@ -96,6 +96,16 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.store.locations sortUsingComparator:^NSComparisonResult(FISLocation *location1, FISLocation *location2) {
+        if (location1.trivia.count > location2.trivia.count) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+        
+        return NSOrderedSame;
+    }];
+    
     [self.tableView reloadData];
 }
 
