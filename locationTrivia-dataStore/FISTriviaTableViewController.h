@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWTableViewCell.h"
 
 @class FISLocation;
 
-@interface FISTriviaTableViewController : UITableViewController
+@interface FISTriviaTableViewController : UITableViewController <SWTableViewCellDelegate>
 
 @property (nonatomic, strong) FISLocation *location;
 

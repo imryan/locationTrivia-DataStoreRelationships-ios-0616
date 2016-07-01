@@ -74,7 +74,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellId" textLabel="fAj-4A-JlY" detailTextLabel="4Yf-PQ-oJY" rowHeight="60" style="IBUITableViewCellStyleValue1" id="Wue-5w-VuI">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellId" textLabel="fAj-4A-JlY" detailTextLabel="4Yf-PQ-oJY" rowHeight="60" style="IBUITableViewCellStyleValue1" id="Wue-5w-VuI" customClass="SWTableViewCell">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wue-5w-VuI" id="vkR-yz-dsx">

@@ -30,14 +30,38 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellId = @"CellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
+    SWTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
+    
+    cell.delegate = self;
+    cell.rightUtilityButtons = [self rightUtilityItems];
     
     FISTrivium *trivium = (FISTrivium *)self.location.trivia[indexPath.row];
     
     cell.textLabel.text = trivium.content;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu likes", trivium.likes];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu like%@", trivium.likes,
+                                 (trivium.likes > 1) || (trivium.likes == 0) ? @"s" : @""];
     
     return cell;
+}
+
+#pragma mark - SWTableViewCellDelegate
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    FISTrivium *trivium = (FISTrivium *)self.location.trivia[indexPath.row];
+    
+    trivium.likes++;
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+}
+
+- (NSArray *)rightUtilityItems {
+    NSMutableArray *buttons = [NSMutableArray new];
+    [buttons sw_addUtilityButtonWithColor:[UIColor colorWithRed:49/255.f
+                                                          green:130/255.f
+                                                           blue:217/255.f
+                                                          alpha:1.f] title:@"Like"];
+    
+    return buttons;
 }
 
 #pragma mark - View;

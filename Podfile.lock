@@ -5,17 +5,22 @@ PODS:
   - KIF/Core (3.3.0)
   - Specta (1.0.4)
   - Swizzlean (0.2.0)
+  - SWTableViewCell (0.3.7)
 
 DEPENDENCIES:
   - Expecta (~> 1.0)
   - KIF (~> 3.3)
   - Specta (~> 1.0)
   - Swizzlean (~> 0.2)
+  - SWTableViewCell (~> 0.3.7)
 
 SPEC CHECKSUMS:
   Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
   KIF: 0a82046d06f3648799cac522d2d0f7934214caac
   Specta: 69bb134672aae190a1379ff91df07dad8dd1f869
   Swizzlean: 6ef3e5a33063b7cd99dc39f8c55164dc55d9a021
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: 19841abaa77f9fa9af95637122c695af069dcb36
+
+COCOAPODS: 1.0.1

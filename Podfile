@@ -4,8 +4,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 # platform :ios, "8.0"
 
 target "locationTrivia-dataStore" do
-
-
+    pod 'SWTableViewCell', '~> 0.3.7'
 end
 
 target "locationTrivia-dataStoreTests" do
